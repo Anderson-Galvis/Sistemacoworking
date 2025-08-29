@@ -1,0 +1,15 @@
+
+fastapi==0.111.0                  # Framework principal para construir la API REST
+uvicorn==0.30.1                   # Servidor ASGI para ejecutar FastAPI (modo desarrollo/producción)
+
+sqlalchemy==2.0.30                # ORM para interactuar con la base de datos MySQL desde Python
+pymysql==1.0.2                    # Driver para conectar SQLAlchemy con MySQL
+
+python-dotenv==1.0.1              # Cargar variables de entorno desde un archivo .env
+
+passlib[bcrypt]==1.7.4            # Hashear y verificar contraseñas de usuarios de forma segura
+fastapi-jwt-auth==0.5.0           # Autenticación con JSON Web Tokens (JWT) para proteger rutas
+python-jose[cryptography]        # Firmar y verificar tokens JWT (dependencia interna de JWT)
+cryptography==41.0.3             # Funciones criptográficas necesarias para JWT y seguridad general
+
+pydantic==2.7.3                   # Validación de datos y definición de modelos (usado por FastAPI)
