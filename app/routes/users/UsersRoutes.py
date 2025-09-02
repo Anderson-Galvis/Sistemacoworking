@@ -10,12 +10,7 @@ from app.utils.deps import get_current_user, require_admin, get_db
 
 router = APIRouter()
 
-def get_db_local():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 @router.get("/me")
 def me(current_user = Depends(get_current_user)):

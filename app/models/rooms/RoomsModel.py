@@ -8,4 +8,4 @@ class Room(Base):
     nombre = Column(String(150), nullable=False)
     sede = Column(String(100), nullable=False)
     capacidad = Column(Integer, nullable=False)
-    recursos = Column(JSON, nullable=True)  # almacenar como JSON-string o CSV
+    recursos = Column(String(255), nullable=True)

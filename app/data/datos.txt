@@ -4,8 +4,9 @@ ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 # 🗄️ Configuración Base de Datos MySQL
-DB_USER=root
-DB_PASS=tu_password
-DB_HOST=127.0.0.1
+DB_USER=campus2023
+DB_PASSWORD=campus2023
+DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=coworking_db
+
