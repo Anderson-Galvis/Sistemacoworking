@@ -1,14 +1,32 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import  Session
-from app.database import get_db
-from sqlalchemy import text 
+# main.py
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
-app = FastAPI()
+from app.routes.users.UsersRoutes import router as users_router
+from app.routes.reservations.ReservationsRoutes import router as reservations_router
+from app.routes.rooms.RoomsRoutes import router as rooms_router
+from app.controllers.auth.AuthController import router as auth_router
 
-@app.get("/test-db/")
-def test_db(db: Session = Depends(get_db)):
-    try:
-        db.execute(text("SELECT 1"))
-        return {"message": "hola, Conexión exitosa con la base de datos"}
-    except Exception as e:
-        return {"error": str(e)}
+
+from app.database import engine, Base
+
+# crear tablas si no existen
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="Gestor Reservas Salas - API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+app.include_router(users_router, prefix="/users", tags=["Users"])
+app.include_router(rooms_router, prefix="/rooms", tags=["Rooms"])
+app.include_router(reservations_router, prefix="/reservations", tags=["Reservations"])
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

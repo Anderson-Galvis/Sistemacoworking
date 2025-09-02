@@ -1,24 +1,22 @@
+# config.py
 from dotenv import load_dotenv
 import os
+from pydantic import BaseModel
+from fastapi_jwt_auth import AuthJWT
 
-load_dotenv()  # Carga el archivo .env automáticamente
+load_dotenv()
 
 class Settings:
-    # JWT
-    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "CAMBIA_EN_PRODUCCION")
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES") or 30)
 
-    # DB
-    DB_HOST: str = os.getenv("DB_HOST")
-    DB_PORT: str = os.getenv("DB_PORT")
-    DB_USER: str = os.getenv("DB_USER")
-    DB_PASSWORD: str = os.getenv("DB_PASSWORD")
-    DB_NAME: str = os.getenv("DB_NAME")
 
-    # Otros
-    ENV: str = os.getenv("ENV", "development")
-    DEBUG: bool = os.getenv("DEBUG", "true").lower() == "true"
+    DB_HOST: str = os.getenv("DB_HOST", "localhost")
+    DB_PORT: str = os.getenv("DB_PORT", "3306")
+    DB_USER: str = os.getenv("DB_USER", "root")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD", "")
+    DB_NAME: str = os.getenv("DB_NAME", "coworking_db")
 
     @property
     def DATABASE_URL(self) -> str:
@@ -28,3 +26,12 @@ class Settings:
         )
 
 settings = Settings()
+
+# 🔑 Configuración específica para fastapi-jwt-auth
+class AuthSettings(BaseModel):
+    authjwt_secret_key: str = settings.SECRET_KEY
+    authjwt_algorithm: str = settings.ALGORITHM
+
+@AuthJWT.load_config
+def get_config():
+    return AuthSettings()
