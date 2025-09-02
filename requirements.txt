@@ -7,9 +7,11 @@ pymysql==1.0.2                    # Driver para conectar SQLAlchemy con MySQL
 
 python-dotenv==1.0.1              # Cargar variables de entorno desde un archivo .env
 
-passlib[bcrypt]==3.2.0           # Hashear y verificar contraseñas de usuarios de forma segura
+passlib==1.7.4         # Hashear y verificar contraseñas de usuarios de forma segura
 fastapi-jwt-auth==0.5.0           # Autenticación con JSON Web Tokens (JWT) para proteger rutas
 python-jose[cryptography]        # Firmar y verificar tokens JWT (dependencia interna de JWT)
 cryptography==41.0.3             # Funciones criptográficas necesarias para JWT y seguridad general
 
 pydantic<2.0                   # Validación de datos y definición de modelos (usado por FastAPI)
+
+requests==2.31.0

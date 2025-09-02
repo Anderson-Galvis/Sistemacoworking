@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import List
+from app.controllers.reservations.ReservationsController import cancel_reservation
 
 from app.utils.deps import get_db, get_current_user, require_admin
 from app.controllers.reservations.ReservationsController import create_reservation, get_reservations_by_user, get_reservations_by_room, get_reservations_by_date, cancel_reservation, room_most_reserved
@@ -44,7 +45,6 @@ def reservations_by_date(fecha: str, db: Session = Depends(get_db)):
 @router.delete("/{reservation_id}")
 def cancel_reservation_endpoint(reservation_id: int, current_user = Depends(get_current_user), db: Session = Depends(get_db)):
     # El admin puede cancelar cualquiera; usuario solo su propia reserva
-    from controllers.reservations.ReservationsController import cancel_reservation
     res = db.query(__import__("models.reservations.ReservationsModel", fromlist=["Reservation"]).Reservation).filter(__import__("models.reservations.ReservationsModel", fromlist=["Reservation"]).Reservation.id == reservation_id).first()
     if not res:
         raise HTTPException(status_code=404, detail="Reserva no encontrada")

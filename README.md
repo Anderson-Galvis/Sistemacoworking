@@ -6,3 +6,20 @@ Incluye autenticación JWT, roles (admin y user), validaciones de solapamiento d
 Instalación
 1. Clonar el repositorio
 git clone 
+
+
+// crear e iniciar el entorno virtual 
+pip install --user virtualenv
+
+crear el entorno virtual 
+~/.local/bin/virtualenv env
+
+activar el entorno 
+source env/bin/activate
+
+// archivo con las dependencias 
+//correr archivo requirements.txt 
+
+pip install -r requirements.txt
+// comando para correr unicorn
+uvicorn app.main:app
