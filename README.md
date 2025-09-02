@@ -5,9 +5,9 @@ Incluye autenticación JWT, roles (admin y user), validaciones de solapamiento d
 
 Instalación
 1. Clonar el repositorio
-git clone 
+git clone https://github.com/Anderson-Galvis/Sistemacoworking.git
 
-
+2. Crear y activar entorno virtual
 // crear e iniciar el entorno virtual 
 pip install --user virtualenv
 
@@ -20,6 +20,26 @@ source env/bin/activate
 // archivo con las dependencias 
 //correr archivo requirements.txt 
 
+
+3. Instalar dependencias
 pip install -r requirements.txt
+
+
 // comando para correr unicorn
 uvicorn app.main:app
+
+
+4. Configurar variables de entorno 
+
+5. Crear la base de datos y cargar datos de prueba
+
+6. Ejecutar el servidor
+
+ Tecnologías usadas
+FastAPI
+SQLAlchemy
+MySQL
+Passlib (bcrypt)
+ → Hash de contraseñas
+fastapi-jwt-auth
+ → JWT
